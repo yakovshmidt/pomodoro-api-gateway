@@ -3,9 +3,13 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: task-microservice
-          url: ${internal.lb.uri}:8081
+        - id: task-service
+          uri: ${internal.lb.uri}:8081
           predicates:
             - Path=/task-service/**
           filters:
             - RewritePath=/task-service/(?<path>.*), /$\{path}
+  application:
+    name: api-gateway
+server:
+  port: 8080
